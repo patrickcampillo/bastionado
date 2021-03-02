@@ -1,0 +1,8 @@
+set_var EASYRSA_REQ_COUNTRY    "ES"
+set_var EASYRSA_REQ_PROVINCE   "Castellon"
+set_var EASYRSA_REQ_CITY       "Castellon de la Plana"
+set_var EASYRSA_REQ_ORG        "Bastionado PCC"
+set_var EASYRSA_REQ_EMAIL      "pcc@bastionado.local"
+set_var EASYRSA_REQ_OU         "Bastionado"
+set_var EASYRSA_ALGO           "ec"
+set_var EASYRSA_DIGEST         "sha512"
