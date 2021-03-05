@@ -2,7 +2,7 @@ trabajo de empliación
 docker autoridad certificadora + easy-rsa/step-cli -> https://www.digitalocean.com/community/tutorials/how-to-set-up-and-configure-a-certificate-authority-ca-on-ubuntu-20-04-es
 https://easy-rsa.readthedocs.io/en/latest/
 
-docker run --rm -it --hostname PCC-AC --name ac-patrick ac-patrick /bin/bash
+docker run --rm -it --hostname ac-patrick --name ac-patrick ac-patrick /bin/bash
 
 
 OPNSENSE
