@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  ac-patrick:
+#    build: .
+    image: ac-patrick:latest
+    volumes:
+      - certs:/certs
+volumes:
+  certs:
+    external: true

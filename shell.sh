@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-# run.sh
+# shell.sh
 
 # run the container in the background
 # /data is persisted using a named container
 
 docker run \
-    --detach \
     --hostname PCC-AC \
     --rm \
-    -v certs:/certs \
+    -it \
     --name="ac-patrick" \
-    ac-patrick
+    --mount type=bind,source="$(pwd)"/certs,target=/certs/actions \
+    ac-patrick \
+    /bin/bash
