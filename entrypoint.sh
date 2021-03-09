@@ -18,10 +18,13 @@ sign.server(){
         certname="$filename-server"
         signedname="$certname.crt"
         cd $workdir
-        bash easyrsa import-req $signdir/$i $certname
-        bash easyrsa sign-req server kali-server
+        /bin/sh ./easyrsa import-req $signdir/$i $certname
+        /bin/sh ./easyrsa sign-req server $certname
         cp $signeddir/$signedname $signdir/$signedname && chown patrick.patrick $signdir/$signedname
     done
+    if ! [ -f $cacert/ca.crt ]; then
+        cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
+    fi
 }
 
 sign.client(){
@@ -33,10 +36,13 @@ sign.client(){
         certname="$filename-client"
         signedname="$certname.crt"
         cd $workdir
-        bash easyrsa import-req $signdir/$i $certname
-        bash easyrsa sign-req client "$certname"
+        /bin/sh ./easyrsa import-req $signdir/$i $certname
+        /bin/sh ./easyrsa sign-req client $certname
         cp $signeddir/$signedname $signdir/$signedname && chown patrick.patrick $signdir/$signedname
     done
+    if ! [ -f $cacert/ca.crt ]; then
+        cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
+    fi
 }
 
 revoke(){
@@ -44,8 +50,8 @@ revoke(){
     revoke=$(ls $revokedir)
     for i in $revoke; do
         cd $workdir
-        bash easyrsa import-req $revokedir/$i $i
-        bash easyrsa revoke $i
+        /bin/sh ./easyrsa import-req $revokedir/$i $i
+        /bin/sh ./easyrsa revoke $i
         cp $revokedir/$i $revokedir/$i && chown patrick.patrick $revokedir/$i
     done
 }
@@ -59,6 +65,6 @@ elif [ $1 == 'sign' ] && [ $2 == 'client' ]; then
 elif [ $1 == 'revoke' ]; then
     revoke
 
-else
+elif [ $1 == 'ca' ]; then
     ca.crt
 fi

@@ -10,7 +10,7 @@ bash easyrsa init-pki
 cp /ac-patrick/vars /ac-patrick/easy-rsa/vars
 sed "3d" /usr/share/easy-rsa/openssl-easyrsa.cnf > /ac-patrick/easy-rsa/pki/openssl-easyrsa.cnf
 ln -s /usr/share/easy-rsa/safessl-easyrsa.cnf /ac-patrick/easy-rsa/pki/safessl-easyrsa.cnf
-bash easyrsa --batch --req-cn=ac-patrick build-ca nopass
+bash easyrsa --batch --vars=vars build-ca nopass
 chmod 700 /ac-patrick/easy-rsa
 
 #Borrado de archivos de configuración
