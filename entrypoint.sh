@@ -2,10 +2,10 @@
 
 dir=/certs/actions
 workdir=/ac-patrick/easy-rsa/
+dircerts=/certs
+cacert=$dir/cacert
 
 ca.crt(){
-    dircerts=/certs
-    cacert=$dir/cacert
     cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
 }
 

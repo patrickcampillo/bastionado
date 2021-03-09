@@ -13,5 +13,9 @@ COPY conf.sh /ac-patrick/conf.sh
 COPY vars /ac-patrick/vars
 
 RUN cd /ac-patrick && bash conf.sh
+
+COPY entrypoint.sh /ac-patrick/easy-rsa/entrypoint.sh 
+RUN chmod +x /ac-patrick/easy-rsa/entrypoint.sh
+
 RUN cp /ac-patrick/easy-rsa/pki/ca.crt /certs/ca.crt
 WORKDIR /ac-patrick/easy-rsa

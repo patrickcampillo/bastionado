@@ -4,11 +4,13 @@
 
 # run the container in the background
 # /data is persisted using a named container
+#-v certs:/certs \
 
 docker run \
     --detach \
     --hostname PCC-AC \
     --rm \
-    -v certs:/certs \
+    --mount type=bind,source="$(pwd)"/certs,target=/certs/actions \
     --name="ac-patrick" \
-    ac-patrick
+    ac-patrick \
+    /bin/bash ./entrypoint.sh $1 $2
