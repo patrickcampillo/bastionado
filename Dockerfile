@@ -17,8 +17,9 @@ RUN mkdir /certs
 #Creación de la carpeta que almacenará la estructura de easy-rsa.
 RUN mkdir /ac-patrick
 
-#Copia del script que configurará easy-rsa.
+#Copia del script que configurará easy-rsa y proporcionar permisos de ejecución al mismo.
 COPY conf.sh /ac-patrick/conf.sh
+RUN chmod +x /ac-patrick/conf.sh
 
 #Copia de las variables que se le pasarán a easy-rsa.
 COPY vars /ac-patrick/vars
