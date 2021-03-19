@@ -5,34 +5,18 @@ FROM debian:latest
 ENV TZ=Europe/Madrid
 ENV DEBIAN_FRONTEND=noninteractive
 
-#Instalar los paquetes necesarios
-RUN apt-get update -y && apt-get install apt-utils easy-rsa -y
+#Instalar los paquetes necesarios, creación del usuario, y creación de carpetas.
+RUN apt-get update -y -qq >/dev/null && apt-get install -y apt-utils easy-rsa >/dev/null && adduser patrick --disabled-password --gecos "" && mkdir /certs /ac-patrick
 
-#Creación de un usuario, mediante el cual se pasarán los certificados sin ser de root.
-RUN adduser patrick --disabled-password --gecos ""
-
-#Creación de la carpeta que almacenará la clave pública de la CA.
-RUN mkdir /certs
-
-#Creación de la carpeta que almacenará la estructura de easy-rsa.
-RUN mkdir /ac-patrick
-
-#Copia del script que configurará easy-rsa y proporcionar permisos de ejecución al mismo.
-COPY conf.sh /ac-patrick/conf.sh
-RUN chmod +x /ac-patrick/conf.sh
-
-#Copia de las variables que se le pasarán a easy-rsa.
-COPY vars /ac-patrick/vars
+#Copia de los ficheros necesarios.
+COPY conf.sh vars entrypoint.sh /ac-patrick/
 
 #Ejecución del script de configuración.
-RUN cd /ac-patrick && bash conf.sh
-
-#Copia y cambio del permiso de ejecución del script que realizará la función de entrypoint.
-COPY entrypoint.sh /ac-patrick/easy-rsa/entrypoint.sh 
-RUN chmod +x /ac-patrick/easy-rsa/entrypoint.sh
-
-#Copia de la clave pública de la CA a la carpeta correspondiente.
-RUN cp /ac-patrick/easy-rsa/pki/ca.crt /certs/ca.crt
+RUN cd /ac-patrick && bash conf.sh && cp /ac-patrick/easy-rsa/pki/ca.crt /certs/ca.crt
 
 #Establecimiento del directorio en el que se lanzará el Docker.
 WORKDIR /ac-patrick/easy-rsa
+
+#Establecer el entrypoint y los comandos que realizará.
+ENTRYPOINT ["./entrypoint.sh"]
+CMD $1 $2

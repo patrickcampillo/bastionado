@@ -11,8 +11,8 @@ cd /ac-patrick/easy-rsa
 bash easyrsa init-pki
 
 #Copia de las variables de eas-rsa a su carpeta correspondiente.
-cp /ac-patrick/vars /ac-patrick/easy-rsa/vars
-
+mv /ac-patrick/vars /ac-patrick/easy-rsa/vars
+mv /ac-patrick/entrypoint.sh /ac-patrick/easy-rsa/
 #Copia del fichero de configuración, sin la 3a línea ya que esta produce un error.
 sed "3d" /usr/share/easy-rsa/openssl-easyrsa.cnf > /ac-patrick/easy-rsa/pki/openssl-easyrsa.cnf
 
@@ -25,4 +25,3 @@ chmod 700 /ac-patrick/easy-rsa
 
 #Borrado del archivo que contiene el script y de las variables de la carpeta inicial.
 rm /ac-patrick/conf.sh
-rm /ac-patrick/vars

@@ -13,4 +13,4 @@ docker run \
     --mount type=bind,source="$(pwd)"/certs,target=/certs/actions \
     --name="ac-patrick" \
     ac-patrick \
-    /bin/bash ./entrypoint.sh $1 $2
+    $1 $2
