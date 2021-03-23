@@ -6,7 +6,7 @@ dircerts=/certs
 cacert=$dir/cacert
 
 ca.crt(){
-    cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
+    cp $dircerts/ca.crt $cacert/ && chmod 644 $cacert/ca.crt
 }
 
 sign.server(){
@@ -20,10 +20,10 @@ sign.server(){
         cd $workdir
         /bin/sh ./easyrsa import-req $signdir/$i $certname
         /bin/sh ./easyrsa sign-req server $certname
-        cp $signeddir/$signedname $signdir/$signedname && chown patrick.patrick $signdir/$signedname
+        cp $signeddir/$signedname $signdir/$signedname && chmod 644 $signdir/$signedname
     done
     if ! [ -f $cacert/ca.crt ]; then
-        cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
+        cp $dircerts/ca.crt $cacert/ && chmod 644 $cacert/ca.crt
     fi
 }
 
@@ -38,10 +38,10 @@ sign.client(){
         cd $workdir
         /bin/sh ./easyrsa import-req $signdir/$i $certname
         /bin/sh ./easyrsa sign-req client $certname
-        cp $signeddir/$signedname $signdir/$signedname && chown patrick.patrick $signdir/$signedname
+        cp $signeddir/$signedname $signdir/$signedname && chmod 644 $signdir/$signedname
     done
     if ! [ -f $cacert/ca.crt ]; then
-        cp $dircerts/ca.crt $cacert/ && chown patrick.patrick $cacert/ca.crt
+        cp $dircerts/ca.crt $cacert/ && chmod 644 $cacert/ca.crt
     fi
 }
 
@@ -52,7 +52,7 @@ revoke(){
         cd $workdir
         /bin/sh ./easyrsa import-req $revokedir/$i $i
         /bin/sh ./easyrsa revoke $i
-        cp $revokedir/$i $revokedir/$i && chown patrick.patrick $revokedir/$i
+        cp $revokedir/$i $revokedir/$i && chmod 644 $revokedir/$i
     done
 }
 

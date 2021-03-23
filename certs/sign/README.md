@@ -1,1 +1,0 @@
-Carpeta que almacena los certificados firmados.

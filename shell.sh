@@ -9,7 +9,7 @@ docker run \
     --hostname PCC-AC \
     --rm \
     -it \
+    -v $(pwd)/certs:/certs/actions \
     --name="ac-patrick" \
-    --mount type=bind,source="$(pwd)"/certs,target=/certs/actions \
     ac-patrick \
     /bin/bash

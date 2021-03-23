@@ -5,8 +5,13 @@ FROM debian:latest
 ENV TZ=Europe/Madrid
 ENV DEBIAN_FRONTEND=noninteractive
 
-#Instalar los paquetes necesarios, creación del usuario, y creación de carpetas.
-RUN apt-get update -y -qq >/dev/null && apt-get install -y apt-utils easy-rsa >/dev/null && adduser patrick --disabled-password --gecos "" && mkdir /certs /ac-patrick
+#Instalar los paquetes necesarios,limpieza de paquetes y cache de las instalaciones y creación de carpetas.
+RUN apt-get update -y -qq >/dev/null \
+    && apt-get install -y apt-utils easy-rsa >/dev/null \
+    && apt-get purge --auto-remove \
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/* \
+    && mkdir /certs /ac-patrick
 
 #Copia de los ficheros necesarios.
 COPY conf.sh vars entrypoint.sh /ac-patrick/

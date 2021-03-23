@@ -10,7 +10,7 @@ docker run \
     --detach \
     --hostname PCC-AC \
     --rm \
-    --mount type=bind,source="$(pwd)"/certs,target=/certs/actions \
+    -v $(pwd)/certs:/certs/actions \
     --name="ac-patrick" \
     ac-patrick \
     $1 $2
